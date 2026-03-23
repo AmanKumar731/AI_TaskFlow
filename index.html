@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TaskFlow — A professional animated task recorder to organize, track, and conquer your daily tasks with style.">
+    <title>TaskFlow — Professional Task Recorder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Animated Background Particles -->
+    <div class="bg-particles" id="bgParticles"></div>
+
+    <!-- Header / Navbar -->
+    <header class="header" id="header">
+        <div class="container header-inner">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 32 32" fill="none">
+                        <rect x="3" y="3" width="26" height="26" rx="7" stroke="url(#logoGrad)" stroke-width="2.5"/>
+                        <path d="M10 16.5L14 20.5L22 12.5" stroke="url(#logoGrad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <defs>
+                            <linearGradient id="logoGrad" x1="3" y1="3" x2="29" y2="29">
+                                <stop stop-color="#6C63FF"/>
+                                <stop offset="1" stop-color="#FF6584"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <span class="logo-text">Task<span class="logo-accent">Flow</span></span>
+            </div>
+            <nav class="nav-actions">
+                <span class="nav-time" id="navTime"></span>
+                <button class="btn btn-ghost" id="themeToggle" aria-label="Toggle theme">
+                    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+
+            <!-- Hero Section -->
+            <section class="hero anim-fade-up">
+                <h1 class="hero-title">Record. Track. <span class="gradient-text">Conquer.</span></h1>
+                <p class="hero-subtitle">Your personal task command center — beautifully animated, effortlessly powerful.</p>
+            </section>
+
+            <!-- Stats Dashboard -->
+            <section class="stats-grid anim-fade-up anim-delay-1">
+                <div class="stat-card" id="statTotal">
+                    <div class="stat-ring">
+                        <svg viewBox="0 0 80 80">
+                            <circle cx="40" cy="40" r="34" class="stat-ring-bg"/>
+                            <circle cx="40" cy="40" r="34" class="stat-ring-fill" id="ringTotal"/>
+                        </svg>
+                        <span class="stat-number" id="numTotal">0</span>
+                    </div>
+                    <span class="stat-label">Total Tasks</span>
+                </div>
+                <div class="stat-card" id="statCompleted">
+                    <div class="stat-ring">
+                        <svg viewBox="0 0 80 80">
+                            <circle cx="40" cy="40" r="34" class="stat-ring-bg"/>
+                            <circle cx="40" cy="40" r="34" class="stat-ring-fill ring-success" id="ringCompleted"/>
+                        </svg>
+                        <span class="stat-number" id="numCompleted">0</span>
+                    </div>
+                    <span class="stat-label">Completed</span>
+                </div>
+                <div class="stat-card" id="statPending">
+                    <div class="stat-ring">
+                        <svg viewBox="0 0 80 80">
+                            <circle cx="40" cy="40" r="34" class="stat-ring-bg"/>
+                            <circle cx="40" cy="40" r="34" class="stat-ring-fill ring-warning" id="ringPending"/>
+                        </svg>
+                        <span class="stat-number" id="numPending">0</span>
+                    </div>
+                    <span class="stat-label">Pending</span>
+                </div>
+                <div class="stat-card" id="statOverdue">
+                    <div class="stat-ring">
+                        <svg viewBox="0 0 80 80">
+                            <circle cx="40" cy="40" r="34" class="stat-ring-bg"/>
+                            <circle cx="40" cy="40" r="34" class="stat-ring-fill ring-danger" id="ringOverdue"/>
+                        </svg>
+                        <span class="stat-number" id="numOverdue">0</span>
+                    </div>
+                    <span class="stat-label">Overdue</span>
+                </div>
+            </section>
+
+            <!-- Add Task Section -->
+            <section class="add-task-section anim-fade-up anim-delay-2">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
+                        New Task
+                    </h2>
+                    <button class="btn btn-icon collapse-btn" id="toggleFormBtn" aria-label="Toggle form">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                </div>
+                <form class="task-form" id="taskForm">
+                    <div class="form-row">
+                        <div class="form-group form-group-title">
+                            <label for="taskTitle">Title <span class="required">*</span></label>
+                            <input type="text" id="taskTitle" placeholder="What needs to be done?" required autocomplete="off">
+                        </div>
+                        <div class="form-group form-group-category">
+                            <label for="taskCategory">Category</label>
+                            <select id="taskCategory">
+                                <option value="general">📋 General</option>
+                                <option value="work">💼 Work</option>
+                                <option value="personal">🏠 Personal</option>
+                                <option value="health">💪 Health</option>
+                                <option value="learning">📚 Learning</option>
+                                <option value="finance">💰 Finance</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group form-group-desc">
+                            <label for="taskDesc">Description</label>
+                            <textarea id="taskDesc" placeholder="Add details…" rows="2"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="taskPriority">Priority</label>
+                            <div class="priority-selector" id="prioritySelector">
+                                <button type="button" class="priority-btn low active" data-priority="low">Low</button>
+                                <button type="button" class="priority-btn medium" data-priority="medium">Medium</button>
+                                <button type="button" class="priority-btn high" data-priority="high">High</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="taskDue">Due Date</label>
+                            <input type="date" id="taskDue">
+                        </div>
+                        <div class="form-group form-group-submit">
+                            <button type="submit" class="btn btn-primary btn-add" id="addTaskBtn">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+                                <span>Add Task</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Filter & Search Bar -->
+            <section class="filter-bar anim-fade-up anim-delay-3">
+                <div class="search-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                    <input type="text" id="searchInput" placeholder="Search tasks…" autocomplete="off">
+                </div>
+                <div class="filter-chips">
+                    <button class="chip active" data-filter="all">All</button>
+                    <button class="chip" data-filter="pending">Pending</button>
+                    <button class="chip" data-filter="completed">Completed</button>
+                    <button class="chip" data-filter="overdue">Overdue</button>
+                </div>
+                <div class="sort-select">
+                    <select id="sortSelect">
+                        <option value="newest">Newest First</option>
+                        <option value="oldest">Oldest First</option>
+                        <option value="priority">Priority ↑</option>
+                        <option value="due">Due Date ↑</option>
+                        <option value="alpha">A → Z</option>
+                    </select>
+                </div>
+            </section>
+
+            <!-- Task List -->
+            <section class="task-list-section">
+                <div class="task-list" id="taskList">
+                    <!-- Tasks rendered here by JS -->
+                </div>
+                <div class="empty-state" id="emptyState">
+                    <div class="empty-icon">
+                        <svg viewBox="0 0 120 120" fill="none">
+                            <circle cx="60" cy="60" r="55" stroke="url(#emptyGrad)" stroke-width="2" stroke-dasharray="6 6"/>
+                            <path d="M45 60h30M60 45v30" stroke="url(#emptyGrad)" stroke-width="2.5" stroke-linecap="round"/>
+                            <defs>
+                                <linearGradient id="emptyGrad" x1="5" y1="5" x2="115" y2="115">
+                                    <stop stop-color="#6C63FF" stop-opacity="0.5"/>
+                                    <stop offset="1" stop-color="#FF6584" stop-opacity="0.5"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <h3>No tasks yet</h3>
+                    <p>Add your first task above to get started!</p>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-inner">
+            <span>Built with ❤️ — TaskFlow &copy; 2026</span>
+            <span class="footer-shortcut">Press <kbd>N</kbd> to add new task</span>
+        </div>
+    </footer>
+
+    <!-- Confetti Canvas -->
+    <canvas id="confettiCanvas"></canvas>
+
+    <!-- Edit Modal -->
+    <div class="modal-overlay" id="editModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Edit Task</h3>
+                <button class="btn btn-icon modal-close" id="modalClose" aria-label="Close">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <form class="modal-body" id="editForm">
+                <input type="hidden" id="editId">
+                <div class="form-group">
+                    <label for="editTitle">Title</label>
+                    <input type="text" id="editTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="editDesc">Description</label>
+                    <textarea id="editDesc" rows="3"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editCategory">Category</label>
+                        <select id="editCategory">
+                            <option value="general">📋 General</option>
+                            <option value="work">💼 Work</option>
+                            <option value="personal">🏠 Personal</option>
+                            <option value="health">💪 Health</option>
+                            <option value="learning">📚 Learning</option>
+                            <option value="finance">💰 Finance</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="editPriority">Priority</label>
+                        <select id="editPriority">
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="editDue">Due Date</label>
+                        <input type="date" id="editDue">
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-ghost" id="modalCancel">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
